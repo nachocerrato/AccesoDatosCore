@@ -32,6 +32,11 @@ namespace AccesoDatosCore
             services.AddTransient<EmpleadosContext>(contexto =>context);
 
 
+            //para plantillas
+            PlantillaContext plantillacontext = new PlantillaContext(cadenaconexion);
+            services.AddTransient<PlantillaContext>(contexto => plantillacontext);
+
+
             Bicicleta bici = new Bicicleta("Orbea", "imagen", 0, 12);
             services.AddSingleton<Bicicleta>(bicicleta => bici);
 

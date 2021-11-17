@@ -55,5 +55,36 @@ namespace AccesoDatosCore.Data
 
             return empleados;
         }
+
+        public Empleado BuscarEmpleado(int idempleado)
+        {
+            string sql = "select * from emp where emp_no=@empno";
+            this.com.CommandText = sql;
+            SqlParameter pamempno = new SqlParameter("@empno", idempleado);
+            this.com.Parameters.Add(pamempno);
+            this.cn.Open();
+            this.reader = this.com.ExecuteReader();
+
+            Empleado empleado;
+            if (this.reader.Read())
+            {
+                empleado = new Empleado();
+                empleado.IdEmpleado = (int)this.reader["EMP_NO"];
+                empleado.Apellido = this.reader["APELLIDO"].ToString();
+                empleado.Salario = (int)this.reader["SALARIO"];
+                empleado.Oficio = this.reader["OFICIO"].ToString();
+            }
+            else
+            {
+                empleado = null;
+            }
+
+            this.reader.Close();
+            this.cn.Close();
+            this.com.Parameters.Clear();
+
+            return empleado;
+
+        }
     }
 }
