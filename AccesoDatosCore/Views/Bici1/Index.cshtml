@@ -1,0 +1,14 @@
+﻿@model Bicicleta
+<h1>Bicicleta 1 View (Control)</h1>
+<h2>Bicicleta: @Model.Marca</h2>
+
+<h2>Velocidad actual: @Model.VelocidadActual</h2>
+
+<form method="post">
+    <button class="btn-info" name="accion" value="acelerar">
+        Acelerar
+    </button>
+    <button class="btn-danger" name="accion" value="frenar">
+        Frenar
+    </button>
+</form>

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccesoDatosCore", "AccesoDatosCore\AccesoDatosCore.csproj", "{EF1848F3-38E7-46D7-A5FB-573342C465B3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EF1848F3-38E7-46D7-A5FB-573342C465B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF1848F3-38E7-46D7-A5FB-573342C465B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF1848F3-38E7-46D7-A5FB-573342C465B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF1848F3-38E7-46D7-A5FB-573342C465B3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DC16B63E-0CC0-4FBC-B347-04BB2F0846BB}
+	EndGlobalSection
+EndGlobal
