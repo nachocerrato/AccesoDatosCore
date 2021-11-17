@@ -10,16 +10,15 @@ namespace AccesoDatosCore.Data
     public class EmpleadosContext
     {
         //aquí declaramos los objetos de acceso a datos
-        String cadenaconexion;
         SqlConnection cn;
         SqlCommand com;
         SqlDataReader reader;
 
         //en el constructor creamos los objetos de acceso a datos
-        public EmpleadosContext()
+        //para construir un contexto, deben darme la cadena de conexión
+        public EmpleadosContext(String cadenaconexion)
         {
-            this.cadenaconexion = @"Data Source=LOCALHOST\SQLEXPRESS;Initial Catalog=HOSPITAL;Persist Security Info=True;User ID=SA;Password=azure";
-            this.cn = new SqlConnection(this.cadenaconexion);
+            this.cn = new SqlConnection(cadenaconexion);
             this.com = new SqlCommand();
             this.com.Connection = this.cn;
             this.com.CommandType = System.Data.CommandType.Text;

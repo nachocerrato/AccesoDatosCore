@@ -1,3 +1,4 @@
+using AccesoDatosCore.Data;
 using AccesoDatosCore.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -24,8 +25,16 @@ namespace AccesoDatosCore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //creamos un nuevo contexto: EmpleadosContext para enviarlo a los controladores que los pidan
+            String cadenaconexion = this.Configuration.GetConnectionString("hospitallocal");
+            EmpleadosContext context = new EmpleadosContext(cadenaconexion);
+            //ponemos nuestro objeto dentro del entorno de net.core
+            services.AddTransient<EmpleadosContext>(contexto =>context);
+
+
             Bicicleta bici = new Bicicleta("Orbea", "imagen", 0, 12);
             services.AddSingleton<Bicicleta>(bicicleta => bici);
+
             services.AddControllersWithViews();
         }
 
