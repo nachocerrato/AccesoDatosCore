@@ -1,0 +1,49 @@
+﻿@model List<Plantilla>
+
+@{
+    List<String> funciones = ViewBag.Funciones as List<String>;
+}
+
+<h1>Funciones</h1>
+<form method="post">
+    <label>Seleccione un tipo de función</label>
+    <select name="funcion" class="form-control">
+        @foreach (String funcion in funciones)
+        {
+            <option value="@funcion">@funcion</option>
+        }
+    </select>
+    <label>Seleccione el incremento de salario: </label>
+    <input type="number" name="incremento"
+           class="form-control" required />
+    <button class="btn btn-success">
+        Aplicar incremento
+    </button>
+</form>
+
+@if (Model != null)
+{
+
+    <h1 style="color:red">@ViewBag.Mensaje </h1>
+
+    <table class="table table-active">
+        <thead>
+            <tr>
+                <th>Apellido</th>
+                <th>Función</th>
+                <th>Salario</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(Plantilla plantilla in Model)
+                {
+                <tr>
+                    <td>@plantilla.Apellido</td>
+                    <td>@plantilla.Funcion</td>
+                    <td style="color:green">@plantilla.Salario</td>
+                </tr>
+                }
+        </tbody>
+    </table>
+
+}

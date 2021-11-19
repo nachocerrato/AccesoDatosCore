@@ -1,0 +1,28 @@
+﻿@model List<Enfermo>
+
+<h1>Eliminar enfermos con GET</h1>
+
+<table class="table table-danger">
+    <thead>
+        <tr>
+            <th>Apellido</th>
+            <th>Dirección</th>
+            <th>Nº de la SS</th>
+            <th>Botón</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Enfermo enfermo in Model)
+            {
+                <tr>
+                    <td>@enfermo.Apellido</td>
+                    <td>@enfermo.Direccion</td>
+                    <td>@enfermo.Nss</td>
+                    <td><a class="btn btn-danger"
+                           asp-controller="EliminarEnfermos"
+                           asp-action="EliminarEnfermosGet"
+                           asp-route-nss="@enfermo.Nss">Eliminar</a></td>
+                </tr>
+            }
+    </tbody>
+</table>

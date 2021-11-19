@@ -230,5 +230,28 @@ namespace AccesoDatosCore.Data
 
             return resultado;
         }
+
+        public int IncrementarSalarioEmpleadoFuncion(String funcion, int incremento)
+        {
+            String sql = "update emp set salario = salario + @incremento"
+                        + " where funciona = @funcion";
+            this.com.CommandText = sql;
+            SqlParameter pamincremento = new SqlParameter("@incremento", incremento);
+            SqlParameter pamfuncion = new SqlParameter("@funcion", funcion);
+
+            this.com.Parameters.Add(pamincremento);
+            this.com.Parameters.Add(pamfuncion);
+
+
+            this.cn.Open();
+
+            int resultado = this.com.ExecuteNonQuery();
+
+
+            this.cn.Close();
+            this.com.Parameters.Clear();
+
+            return resultado;
+        }
     }
 }

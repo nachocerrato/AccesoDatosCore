@@ -1,3 +1,4 @@
+using AccesoDatosCore.Controllers;
 using AccesoDatosCore.Data;
 using AccesoDatosCore.Models;
 using Microsoft.AspNetCore.Builder;
@@ -36,6 +37,9 @@ namespace AccesoDatosCore
             PlantillaContext plantillacontext = new PlantillaContext(cadenaconexion);
             services.AddTransient<PlantillaContext>(contexto => plantillacontext);
 
+            //para enfermos
+            EnfermosContext enfermoscontext = new EnfermosContext(cadenaconexion);
+            services.AddTransient<EnfermosContext>(contexto => enfermoscontext);
 
             Bicicleta bici = new Bicicleta("Orbea", "imagen", 0, 12);
             services.AddSingleton<Bicicleta>(bicicleta => bici);

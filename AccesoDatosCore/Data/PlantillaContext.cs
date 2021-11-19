@@ -24,7 +24,7 @@ namespace AccesoDatosCore.Data
         public List<Plantilla> GetPlantilla()
         {
             String sql = "select * from plantilla";
-            cn.Open();
+            this.cn.Open();
             this.com.CommandText = sql;
             this.reader = this.com.ExecuteReader();
 
@@ -80,6 +80,89 @@ namespace AccesoDatosCore.Data
             {
                 return plantillas;
             }
+        }
+
+        public List<String> GetFunciones()
+        {
+            String sql = "select distinct funcion from plantilla";
+            this.com.CommandText = sql;
+            this.cn.Open();
+            this.reader = this.com.ExecuteReader();
+
+            List<String> funciones = new List<string>();
+
+            while (this.reader.Read())
+            {
+                funciones.Add(this.reader["FUNCION"].ToString());
+            }
+
+            this.reader.Close();
+            this.cn.Close();
+
+            if (funciones.Count == 0)
+            {
+                return null;
+            }
+            else
+            {
+                return funciones;
+            }
+
+        }
+
+        public List<Plantilla> GetPlantillaFunciones(String funcion)
+        {
+            String sql = "select * from plantilla where funcion=@funcion";
+            this.com.CommandText = sql;
+
+            SqlParameter pamfuncion = new SqlParameter("@funcion", funcion);
+            this.com.Parameters.Add(pamfuncion);
+            this.cn.Open();
+
+            this.reader = this.com.ExecuteReader();
+
+
+            List<Plantilla> plantillas = new List<Plantilla>();
+
+            while (this.reader.Read())
+            {
+                Plantilla plantilla = new Plantilla();
+                plantilla.Apellido = this.reader["APELLIDO"].ToString();
+                plantilla.Funcion = this.reader["FUNCION"].ToString();
+                plantilla.Salario = int.Parse(this.reader["SALARIO"].ToString());
+
+                plantillas.Add(plantilla);
+            }
+
+            this.cn.Close();
+            this.com.Parameters.Clear();
+            this.reader.Close();
+
+            return plantillas;
+        }
+
+        public int IncrementarSalarioEmpleadoFuncion(String funcion, int incremento)
+        {
+            String sql = "update plantilla set salario = salario + @incremento" +
+                " where funcion = @funcion";
+            this.com.CommandText = sql;
+
+            SqlParameter pamincremento = new SqlParameter("@incremento", incremento);
+            SqlParameter pamfuncion = new SqlParameter("@funcion", funcion);
+
+
+            this.com.Parameters.Add(pamincremento);
+            this.com.Parameters.Add(pamfuncion);
+
+            this.cn.Open();
+
+
+            int resultado = this.com.ExecuteNonQuery();
+
+            this.cn.Close();
+            this.com.Parameters.Clear();
+
+            return resultado;
         }
     }
 }
