@@ -46,5 +46,40 @@ namespace AccesoDatosCore.Data
 
             return plantillas;
         }
+
+        public List<Plantilla> GetPlantillaTurno(String turno)
+        {
+            String sql = "select * from plantilla where t = @turno";
+            this.com.CommandText = sql;
+            SqlParameter pamturno = new SqlParameter("@turno", turno);
+            this.com.Parameters.Add(pamturno);
+            this.cn.Open();
+            this.reader = this.com.ExecuteReader();
+
+            List<Plantilla> plantillas = new List<Plantilla>();
+
+            while (this.reader.Read())
+            {
+                Plantilla plantilla = new Plantilla();
+                plantilla.Apellido = this.reader["APELLIDO"].ToString();
+                plantilla.Funcion = this.reader["FUNCION"].ToString();
+                plantilla.Salario = int.Parse(this.reader["SALARIO"].ToString());
+
+                plantillas.Add(plantilla);
+            }
+
+            this.cn.Close();
+            this.reader.Close();
+            this.com.Parameters.Clear();
+
+            if(plantillas.Count == 0)
+            {
+                return null;
+            }
+            else
+            {
+                return plantillas;
+            }
+        }
     }
 }

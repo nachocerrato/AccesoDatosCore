@@ -25,5 +25,6 @@ namespace AccesoDatosCore.Controllers
             List<Empleado> empleados = this.context.GetEmpleados();
             return View(empleados);
         }
+
     }
 }

@@ -86,5 +86,149 @@ namespace AccesoDatosCore.Data
             return empleado;
 
         }
+
+        public List<Empleado> GetEmpleadosSalario(int salario)
+        {
+            String sql = "select * from emp where salario > @salario";
+            this.com.CommandText = sql;
+            SqlParameter pamsalario = new SqlParameter("@salario", salario);
+            this.com.Parameters.Add(pamsalario);
+            this.cn.Open();
+            this.reader = this.com.ExecuteReader();
+
+            List<Empleado> empleados = new List<Empleado>();
+
+            while (this.reader.Read())
+            {
+                Empleado empleado = new Empleado();
+                empleado.Apellido = this.reader["APELLIDO"].ToString();
+                empleado.Oficio = this.reader["OFICIO"].ToString();
+                empleado.Salario = int.Parse(this.reader["SALARIO"].ToString());
+
+                empleados.Add(empleado);
+            }
+
+            this.cn.Close();
+            this.reader.Close();
+            this.com.Parameters.Clear();
+
+            if (empleados.Count == 0)
+            {
+                return null;
+            }
+            else
+            {
+                return empleados;
+            }
+        }
+    
+        public List<String> GetOficios()
+        {
+            String sql = "select distinct oficio from emp";
+            this.com.CommandText = sql;
+            this.cn.Open();
+            this.reader = this.com.ExecuteReader();
+
+
+            List<String> oficios = new List<string>();
+            while (this.reader.Read())
+            {
+                String oficio = this.reader["OFICIO"].ToString();
+                oficios.Add(oficio);
+            }
+
+
+            this.reader.Close();
+            this.cn.Close();
+
+            return oficios;
+        }
+
+        public List<Empleado> GetEmpleadosOficio(String oficio)
+        {
+            String sql = "select * from emp where oficio = @oficio";
+            this.com.CommandText = sql;
+            this.cn.Open();
+            SqlParameter pamoficio = new SqlParameter("@oficio", oficio);
+            this.com.Parameters.Add(pamoficio);
+            this.reader = this.com.ExecuteReader();
+
+            List<Empleado> empleados = new List<Empleado>();
+
+            while (this.reader.Read())
+            {
+                Empleado empleado = new Empleado();
+                empleado.Apellido = this.reader["APELLIDO"].ToString();
+                empleado.Oficio = this.reader["OFICIO"].ToString();
+                empleado.Salario = int.Parse(this.reader["SALARIO"].ToString());
+
+                empleados.Add(empleado);
+            }
+
+            this.reader.Close();
+            this.cn.Close();
+            this.com.Parameters.Clear();
+
+            if(empleados.Count == 0)
+            {
+                return null;
+            }
+            else
+            {
+                return empleados;
+            }
+        }
+
+        public List<String> GetApellidos()
+        {
+            String sql = "selct apellido from emp";
+            this.com.CommandText = sql;
+            this.cn.Open();
+            this.reader = this.com.ExecuteReader();
+
+            List<String> apellidos = new List<string>();
+
+            while (this.reader.Read())
+            {
+                apellidos.Add(this.reader["APELLIDO"].ToString());
+            }
+
+
+            this.cn.Close();
+            this.reader.Close();
+
+            if (apellidos.Count == 0)
+            {
+                return null;
+            }
+            else
+            {
+                return apellidos;
+            }
+
+        }
+
+        public int IncrementarSalarioEmpleado (int idempleado, int incremento)
+        {
+            String sql = "update emp set salario = salario + @incremento"
+                        + " where emp_no = @idempleado";
+            this.com.CommandText = sql;
+            SqlParameter pamincremento = new SqlParameter("@incremento", incremento);
+            SqlParameter pamidempleado = new SqlParameter("@idempleado", idempleado);
+
+            this.com.Parameters.Add(pamincremento);
+            this.com.Parameters.Add(pamidempleado);
+
+
+            this.cn.Open();
+            
+            int resultado = this.com.ExecuteNonQuery();
+
+
+            this.cn.Close();
+            this.com.Parameters.Clear();
+
+            return resultado;
+        }
     }
 }
